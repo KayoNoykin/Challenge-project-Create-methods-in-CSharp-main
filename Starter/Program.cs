@@ -27,10 +27,17 @@ int food = 0;
 InitializeGame();
 while (!shouldExit) 
 {
-    Move();
+    if (PlayerStunned())
+    {
+        FreezePlayer();
+        continue;
+    }
+    else 
+    {
+        Move();
+    }
     if (EatFood(playerX, playerY, foodX, foodY))
     {
-        //FreezePlayer();
         ChangePlayer();
         ShowFood();
     }
@@ -141,4 +148,9 @@ bool EatFood(int playerX, int playerY, int foodX, int foodY)
     //making correct place to "eat" invisible
     if (playerX == foodX && playerY == foodY) return true;
     return false;
+}
+
+bool PlayerStunned()
+{ 
+    return player.Equals(states[2])
 }
