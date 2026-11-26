@@ -28,6 +28,12 @@ InitializeGame();
 while (!shouldExit) 
 {
     Move();
+    if (EatFood(playerX, playerY, foodX, foodY))
+    {
+        //FreezePlayer();
+        ChangePlayer();
+        ShowFood();
+    }
     if (TerminalResized() == true)
     {
         Console.WriteLine("Console was resized. Program exiting.");
@@ -122,4 +128,17 @@ void InitializeGame()
     ShowFood();
     Console.SetCursorPosition(0, 0);
     Console.Write(player);
+}
+
+bool EatFood(int playerX, int playerY, int foodX, int foodY)
+{
+    //if the any part of the player character overlaps with any part of the food, mark that bit of food as eaten
+    //if all food is eaten, return true
+    //would need to be stored in external variable/array?
+
+    //less thorough method
+    //only works if player is completely on top of all food, but food parts can be removed without triggering this
+    //making correct place to "eat" invisible
+    if (playerX == foodX && playerY == foodY) return true;
+    return false;
 }
