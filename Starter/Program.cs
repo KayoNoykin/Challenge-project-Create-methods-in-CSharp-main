@@ -32,6 +32,10 @@ while (!shouldExit)
         FreezePlayer();
         continue;
     }
+    else if (FastPlayer())
+    {
+        Move(3);
+    }
     else 
     {
         Move();
@@ -85,7 +89,7 @@ void FreezePlayer()
 }
 
 // Reads directional input from the Console and moves the player
-void Move(bool closeOnOther = false) 
+void Move(int speed = 1, bool closeOnOther = false) 
 {
     int lastX = playerX;
     int lastY = playerY;
@@ -99,10 +103,10 @@ void Move(bool closeOnOther = false)
             playerY++; 
             break;
 		case ConsoleKey.LeftArrow:  
-            playerX--; 
+            playerX-= speed; 
             break;
 		case ConsoleKey.RightArrow: 
-            playerX++; 
+            playerX+= speed; 
             break;
 		case ConsoleKey.Escape:     
             shouldExit = true; 
@@ -151,6 +155,11 @@ bool EatFood(int playerX, int playerY, int foodX, int foodY)
 }
 
 bool PlayerStunned()
-{ 
-    return player.Equals(states[2])
+{
+    return player.Equals(states[2]);
+}
+
+bool FastPlayer()
+{
+    return player.Equals(states[1]);
 }
