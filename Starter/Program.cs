@@ -28,6 +28,11 @@ InitializeGame();
 while (!shouldExit) 
 {
     Move();
+    if (TerminalResized() == true)
+    {
+        Console.WriteLine("Console was resized. Program exiting.");
+        shouldExit = true;
+    }
 }
 
 // Returns true if the Terminal was resized 
@@ -67,7 +72,7 @@ void FreezePlayer()
 }
 
 // Reads directional input from the Console and moves the player
-void Move() 
+void Move(bool closeOnOther = false) 
 {
     int lastX = playerX;
     int lastY = playerY;
@@ -88,6 +93,9 @@ void Move()
             break;
 		case ConsoleKey.Escape:     
             shouldExit = true; 
+            break;
+        default:
+            if (closeOnOther == true) shouldExit = true;
             break;
     }
 
